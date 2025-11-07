@@ -10,6 +10,12 @@ class BurgersService {
 
     }
 
+    async createBurger(burgerData) {
+        const burger = await dbContext.Burgers.create(burgerData)
+        return burger
+
+
+    }
 
 }
 
