@@ -13,6 +13,7 @@ export class BurgersController extends BaseController {
         this.router.get('', this.getBurgers)
         this.router.post('', this.createBurger)
         this.router.delete('/:burgerId', this.deleteBurger) //Don't forget the : here!
+        this.router.put('/:burgerId', this.updateBurger)
 
     }
 
@@ -88,6 +89,27 @@ export class BurgersController extends BaseController {
 
 
 
+    }
+
+    async updateBurger(request, response, next) {
+
+
+        try {
+            const burgerId = request.params.burgerId
+            const burgerData = request.body //where we type in updated data, I think... 
+
+            const burgerToUpdate = await burgersService.updateBurger(burgerId, burgerData)
+
+            response.send(burgerToUpdate)
+
+
+        }
+
+        catch (error) {
+            next(error)
+
+
+        }
     }
 
 }

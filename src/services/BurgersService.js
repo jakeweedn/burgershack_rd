@@ -31,6 +31,25 @@ class BurgersService {
 
     }
 
+    async updateBurger(burgerId, burgerData) {
+
+        const burgerToUpdate = await dbContext.Burgers.findById(burgerId)
+
+        if (!burgerToUpdate) {
+
+            throw new Error("There is no burger there. Bad id")
+        }
+
+        burgerToUpdate.name = burgerData.name
+        burgerToUpdate.price = burgerData.price
+
+        await burgerToUpdate.save()
+
+        return burgerToUpdate
+
+
+
+    }
 }
 
 export const burgersService = new BurgersService()
