@@ -12,6 +12,7 @@ export class BurgersController extends BaseController {
         this.router.get('/test', this.getTest)
         this.router.get('', this.getBurgers)
         this.router.post('', this.createBurger)
+        this.router.delete('/:burgerId', this.deleteBurger) //Don't forget the : here!
 
     }
 
@@ -62,6 +63,31 @@ export class BurgersController extends BaseController {
 
 
         }
+    }
+
+
+    async deleteBurger(request, response, next) {
+
+        try {
+            const burgerId = request.params.burgerId
+            const burgerToDelete = await burgersService.deleteBurger(burgerId)
+            console.log('burgerId', burgerId)
+
+
+            response.send(burgerToDelete)
+
+
+
+
+
+        }
+
+        catch (error) {
+            next(error)
+        }
+
+
+
     }
 
 }

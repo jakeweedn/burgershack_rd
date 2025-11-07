@@ -17,6 +17,20 @@ class BurgersService {
 
     }
 
+    async deleteBurger(burgerId) {
+        const burgerToDelete = await dbContext.Burgers.findById(burgerId)
+
+        if (!burgerToDelete) {
+
+            throw new Error("There is no burger there. Bad id")
+        }
+
+        await burgerToDelete.deleteOne()
+        return (`${burgerToDelete.name} was deleted`)
+
+
+    }
+
 }
 
 export const burgersService = new BurgersService()
