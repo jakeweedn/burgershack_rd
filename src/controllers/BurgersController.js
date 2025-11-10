@@ -11,6 +11,10 @@ export class BurgersController extends BaseController {
 
         this.router.get('/test', this.getTest)
         this.router.get('', this.getBurgers)
+        this.router.get('/:burgerId', this.getBurgerById)
+
+
+
         this.router.post('', this.createBurger)
         this.router.delete('/:burgerId', this.deleteBurger) //Don't forget the : here!
         this.router.put('/:burgerId', this.updateBurger)
@@ -49,6 +53,25 @@ export class BurgersController extends BaseController {
 
     }
 
+    async getBurgerById(request, response, next) {
+
+        try {
+            const burgerId = request.params.burgerId
+
+            console.log('Getting this specific burger')
+            const burgerToGet = await burgersService.getBurgerById(burgerId)
+
+            response.send(burgerToGet)
+
+
+        }
+
+        catch (error) {
+            next(error)
+
+
+        }
+    }
     async createBurger(request, response, next) {
 
         try {

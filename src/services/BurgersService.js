@@ -10,6 +10,18 @@ class BurgersService {
 
     }
 
+    async getBurgerById(burgerId) {
+
+        const burgerToGet = await dbContext.Burgers.findById(burgerId)
+        if (!burgerToGet) {
+
+            throw new Error("There is no burger there. Bad id")
+        }
+
+        return burgerToGet
+
+    }
+
     async createBurger(burgerData) {
         const burger = await dbContext.Burgers.create(burgerData)
         return burger
